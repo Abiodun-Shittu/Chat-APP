@@ -9,3 +9,19 @@ services:
     volumes:
       - ./:/usr/src/app
     command: yarn run dev
+    env_file:
+      - .env
+    depends_on:
+      - db
+  
+  db:
+    image: postgres:alpine
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+volumes:
+  db_data:
