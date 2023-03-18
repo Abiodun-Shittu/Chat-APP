@@ -8,7 +8,7 @@
 		"dev": "nodemon src/index.ts",
 		"build": "rimraf /dist && tsc",
 		"start": "yarn run build && node dist/index.js",
-		"test": "mocha --recursive test/**/*.test.ts"
+		"test": "mocha --require ts-node/register test/**/*.test.ts"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.3.4",
