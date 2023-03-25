@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 dotenv.config();
 
-const sequelize = new Sequelize({
+export const sequelize = new Sequelize({
 	dialect: "postgres",
 	host: process.env.DB_HOST,
 	port: Number(process.env.DB_PORT),
@@ -11,7 +11,7 @@ const sequelize = new Sequelize({
 	password: process.env.DB_PASSWORD,
 });
 
-const initiate = async () => {
+export const initiate = async () => {
 	try {
 		await sequelize.authenticate();
 		console.log("Connection has been established successfully.");
@@ -20,5 +20,3 @@ const initiate = async () => {
 		console.error("Unable to connect to the database.", error);
 	}
 };
-
-export default initiate;
