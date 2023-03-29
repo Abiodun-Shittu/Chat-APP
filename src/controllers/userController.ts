@@ -20,7 +20,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 		// Create a new user
 		const newUser = await User.create({
-			id: uuidv4(),
+			uuid: uuidv4(),
 			firstName,
 			lastName,
 			email,

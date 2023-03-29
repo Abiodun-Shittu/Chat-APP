@@ -2,7 +2,8 @@ import { DataTypes, Model, UUIDV4 } from "sequelize";
 import { sequelize } from "../db/db";
 
 interface UserAttributes {
-	id: string;
+	id?: Number;
+	uuid: String;
 	firstName: string;
 	lastName: string;
 	email: string;
@@ -15,10 +16,16 @@ const User = sequelize.define<UserModel>(
 	"User",
 	{
 		id: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			autoIncrement: true,
+			primaryKey: true,
+		},
+		uuid: {
 			type: DataTypes.UUID,
 			defaultValue: UUIDV4,
 			allowNull: false,
-			primaryKey: true,
+			unique: true,
 		},
 		firstName: {
 			type: DataTypes.STRING,

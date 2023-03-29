@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
-import {initiate} from "./db/db";
+import { initiate } from "./db/db";
 import userRoute from "./routes/userRoute";
 
 const app: Application = express();
@@ -19,7 +19,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Mount Routes
-app.use("/api/chat", userRoute)
+app.use("/api/users", userRoute);
 
 app.listen(PORT, () => {
 	console.log(`Server listening at http://localhost:${PORT}`);
