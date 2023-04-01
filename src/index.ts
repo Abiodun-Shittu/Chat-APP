@@ -7,22 +7,19 @@ import { initiate } from "./db/db";
 import userRoute from "./routes/userRoute";
 import { errorResponse } from "./services/response";
 import { httpErrors } from "./services/errors";
-import { handleFormData } from "./services/multipart";
 
 const app: Application = express();
 const PORT = Number(process.env.PORT || 6000);
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 initiate();
 
 app.get("/", (req: Request, res: Response) => {
 	return res.status(200).json({ message: "Chat API is Running!!!" });
 });
-
-// Middleware to handle multipart/form-data requests
-app.use(handleFormData);
 
 // Mount Routes
 app.use("/api/users", userRoute);
