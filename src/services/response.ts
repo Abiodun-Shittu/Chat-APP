@@ -3,10 +3,6 @@ import { Response } from "express";
 export interface ApiResponse<T> {
 	success: Boolean;
 	message?: String;
-	error?: {
-		type: String;
-		message: String | Array<Object>;
-	};
 	payload?: T;
 }
 
@@ -19,20 +15,5 @@ export const successResponse = <T>(
 		success: true,
 		message,
 		payload,
-	});
-};
-
-export const errorResponse = <T>(
-	res: Response,
-	error: any,
-	message: any
-): Response<ApiResponse<T>> => {
-	let errorCode = error.code || 401;
-	return res.status(errorCode).json({
-		success: false,
-		error: {
-			type: error.type,
-			message: message,
-		},
 	});
 };

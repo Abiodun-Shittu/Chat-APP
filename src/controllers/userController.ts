@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import User from "../models/userModel";
-import { errorResponse, successResponse } from "../services/response";
-import { httpErrors } from "../services/errors";
+import { UnauthorizedException } from "../services/exceptions/unauthorizedException";
+import { successResponse } from "../services/response";
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const { firstName, lastName, email, password } = req.body;
 
@@ -14,7 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
 			where: { email: email },
 		});
 		if (checkIfEmailExists) {
-			return errorResponse(res, httpErrors.AccountExists , "Email already exists");
+			throw new UnauthorizedException("Email already exists");
 		}
 
 		// Hash the password
@@ -29,13 +29,9 @@ export const createUser = async (req: Request, res: Response) => {
 			password: hashedPassword,
 		});
 
-		return successResponse(res, "User created successfully", { newUser: newUser });
+		return successResponse(res, "User created successfully", { newUser });
 	} catch (error) {
 		console.log(error);
-		return errorResponse(
-			res,
-			httpErrors.ServerError,
-			"Server error, please contact the administrator"
-		);
+		next(error);
 	}
 };

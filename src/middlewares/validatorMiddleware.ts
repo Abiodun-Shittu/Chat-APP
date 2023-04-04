@@ -1,5 +1,6 @@
 
 import { Request, Response, NextFunction } from "express";
+import { InvalidBodyParameterException } from "../services/exceptions/invalidParamsException";
 
 export const validateRequiredParams = (requiredParams: string[]) => {
 	return (req: Request, res: Response, next: NextFunction) => {
@@ -9,10 +10,9 @@ export const validateRequiredParams = (requiredParams: string[]) => {
 			);
 
 			if (missingParams.length > 0) {
-				return res.status(422).json({
-					error: "Missing required parameters",
-					params: missingParams,
-				});
+				throw new InvalidBodyParameterException(
+					`${missingParams} is required`
+				);
 			}
 			next();
 		} catch (error) {

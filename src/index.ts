@@ -5,8 +5,8 @@ dotenv.config();
 
 import { initiate } from "./db/db";
 import userRoute from "./routes/userRoute";
-import { errorResponse } from "./services/response";
-import { httpErrors } from "./services/errors";
+import { errorHandler } from "./middlewares/errorHandle";
+import { NotFoundException } from "./services/exceptions/notFoundException";
 
 const app: Application = express();
 const PORT = Number(process.env.PORT || 6000);
@@ -27,13 +27,13 @@ app.use("/api/users", userRoute);
 // Catch-all 404 route
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
 	next(
-		errorResponse(
-			res,
-			httpErrors.NotFoundError,
+		new NotFoundException(
 			`This route ${req.originalUrl} does not exist on this server.`
 		)
 	);
 });
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
 	console.log(`Server listening at http://localhost:${PORT}`);
