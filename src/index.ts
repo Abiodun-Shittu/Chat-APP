@@ -6,7 +6,7 @@ dotenv.config();
 import { initiate } from "./db/db";
 import userRoute from "./routes/userRoute";
 import { errorHandler } from "./middlewares/errorHandle";
-import { NotFoundException } from "./services/exceptions/notFoundException";
+import { NotFoundException } from "./exceptions/notFoundException";
 
 const app: Application = express();
 const PORT = Number(process.env.PORT || 6000);

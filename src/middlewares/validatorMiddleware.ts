@@ -1,6 +1,5 @@
-
 import { Request, Response, NextFunction } from "express";
-import { InvalidBodyParameterException } from "../services/exceptions/invalidParamsException";
+import { InvalidBodyParameterException } from "../exceptions/invalidParamsException";
 
 export const validateRequiredParams = (requiredParams: string[]) => {
 	return (req: Request, res: Response, next: NextFunction) => {

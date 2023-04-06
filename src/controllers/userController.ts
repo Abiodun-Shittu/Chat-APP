@@ -2,10 +2,14 @@ import { NextFunction, Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import User from "../models/userModel";
-import { UnauthorizedException } from "../services/exceptions/unauthorizedException";
+import { UnauthorizedException } from "../exceptions/unauthorizedException";
 import { successResponse } from "../services/response";
 
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+export const createUser = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
 	try {
 		const { firstName, lastName, email, password } = req.body;
 

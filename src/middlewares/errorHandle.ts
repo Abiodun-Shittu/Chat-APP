@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { ClientErrorException } from "../services/exceptions/clientErrorException";
-import { ConflictException } from "../services/exceptions/conflictException";
-import { InvalidBodyParameterException } from "../services/exceptions/invalidParamsException";
-import { NotFoundException } from "../services/exceptions/notFoundException";
-import { UnauthorizedException } from "../services/exceptions/unauthorizedException";
-import { UnauthenticatedException } from "../services/exceptions/unauthenticatedException";
-import { ServerError } from "../services/exceptions/serverError";
+import { ClientErrorException } from "../exceptions/clientErrorException";
+import { ConflictException } from "../exceptions/conflictException";
+import { InvalidBodyParameterException } from "../exceptions/invalidParamsException";
+import { NotFoundException } from "../exceptions/notFoundException";
+import { UnauthorizedException } from "../exceptions/unauthorizedException";
+import { UnauthenticatedException } from "../exceptions/unauthenticatedException";
+import { ServerError } from "../exceptions/serverError";
 
 export const errorHandler = (
 	err: Error,
@@ -18,27 +18,26 @@ export const errorHandler = (
 
 	if (err instanceof ClientErrorException) {
 		statusCode = err.statusCode;
-		message = err.message
+		message = err.message;
 	} else if (err instanceof ConflictException) {
-		statusCode = err.statusCode
+		statusCode = err.statusCode;
 		message = err.message;
 	} else if (err instanceof InvalidBodyParameterException) {
-		statusCode = err.statusCode
-		message = err.message
+		statusCode = err.statusCode;
+		message = err.message;
 	} else if (err instanceof NotFoundException) {
-		statusCode = err.statusCode
-		message = err.message
+		statusCode = err.statusCode;
+		message = err.message;
 	} else if (err instanceof UnauthenticatedException) {
-		statusCode = err.statusCode
-		message = err.message
+		statusCode = err.statusCode;
+		message = err.message;
 	} else if (err instanceof UnauthorizedException) {
-		statusCode = err.statusCode
-		message = err.message
+		statusCode = err.statusCode;
+		message = err.message;
 	} else if (err instanceof ServerError) {
-		statusCode = err.statusCode
-		message = err.message
+		statusCode = err.statusCode;
+		message = err.message;
 	}
 
 	return res.status(statusCode).json({ statusCode, message });
-
 };
