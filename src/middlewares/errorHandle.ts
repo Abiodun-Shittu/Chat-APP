@@ -15,6 +15,7 @@ export const errorHandler = (
 ) => {
 	let statusCode = 500;
 	let message = "Server error, please contact the administrator";
+	let errors: Record<string, string> = {};
 
 	if (err instanceof ClientErrorException) {
 		statusCode = err.statusCode;
@@ -25,6 +26,7 @@ export const errorHandler = (
 	} else if (err instanceof InvalidBodyParameterException) {
 		statusCode = err.statusCode;
 		message = err.message;
+		errors = err.errors;
 	} else if (err instanceof NotFoundException) {
 		statusCode = err.statusCode;
 		message = err.message;
@@ -38,6 +40,9 @@ export const errorHandler = (
 		statusCode = err.statusCode;
 		message = err.message;
 	}
-
-	return res.status(statusCode).json({ statusCode, message });
+	if (Object.keys(errors).length > 0) {
+		return res.status(statusCode).json({ statusCode, message, errors });
+	} else {
+		return res.status(statusCode).json({ statusCode, message });
+	}
 };
