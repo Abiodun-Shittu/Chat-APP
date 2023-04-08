@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
-import User from "../models/userModel";
-import { UnauthorizedException } from "../exceptions/unauthorizedException";
-import { successResponse } from "../services/response";
+import User from "../Models/UserModel";
+import { UnauthorizedException } from "../Exceptions/UnauthorizedException";
+import { successResponse } from "../Services/Response";
 
 export const createUser = async (
 	req: Request,

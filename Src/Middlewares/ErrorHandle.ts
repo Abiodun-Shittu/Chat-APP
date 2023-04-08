@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { ClientErrorException } from "../exceptions/clientErrorException";
-import { ConflictException } from "../exceptions/conflictException";
-import { InvalidBodyParameterException } from "../exceptions/invalidParamsException";
-import { NotFoundException } from "../exceptions/notFoundException";
-import { UnauthorizedException } from "../exceptions/unauthorizedException";
-import { UnauthenticatedException } from "../exceptions/unauthenticatedException";
-import { ServerError } from "../exceptions/serverError";
+import { ClientErrorException } from "../Exceptions/ClientErrorException";
+import { ConflictException } from "../Exceptions/ConflictException";
+import { InvalidBodyParameterException } from "../Exceptions/InvalidParamsException";
+import { NotFoundException } from "../Exceptions/NotFoundException";
+import { UnauthorizedException } from "../Exceptions/UnauthorizedException";
+import { UnauthenticatedException } from "../Exceptions/UnauthenticatedException";
+import { ServerError } from "../Exceptions/ServerError";
 
 export const errorHandler = (
 	err: Error,

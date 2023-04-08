@@ -1,5 +1,5 @@
 import { DataTypes, Model, UUIDV4 } from "sequelize";
-import { sequelize } from "../db/db";
+import { sequelize } from "../Db/Db";
 
 interface UserAttributes {
 	id?: Number;

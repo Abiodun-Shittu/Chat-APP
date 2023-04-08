@@ -1,7 +1,7 @@
 import express, { Router } from "express";
-import { createUser } from "../controllers/userController";
-import { validateUser } from "../middlewares/userMiddleware";
-import { validateRequiredParams } from "../middlewares/validatorMiddleware";
+import { createUser } from "../Controllers/UserController";
+import { validateUser } from "../Middlewares/UserMiddleware";
+import { validateRequiredParams } from "../Middlewares/ValidatorMiddleware";
 
 const router = express.Router();
 

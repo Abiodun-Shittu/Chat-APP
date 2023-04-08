@@ -3,10 +3,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { initiate } from "./db/db";
-import userRoute from "./routes/userRoute";
-import { errorHandler } from "./middlewares/errorHandle";
-import { NotFoundException } from "./exceptions/notFoundException";
+import { initiate } from "./Db/Db";
+import userRoute from "./Routes/UserRoute";
+import { errorHandler } from "./Middlewares/ErrorHandle";
+import { NotFoundException } from "./Exceptions/NotFoundException";
 
 const app: Application = express();
 const PORT = Number(process.env.PORT || 6000);
