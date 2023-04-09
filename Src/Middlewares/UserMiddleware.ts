@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { InvalidBodyParameterException } from "../Exceptions/InvalidParamsException";
 
 export const validateUser = (
 	req: Request,
@@ -7,23 +8,22 @@ export const validateUser = (
 ) => {
 	const { firstName, lastName, email, password } = req.body;
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-	const passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d]{8,}$/;
-	if (firstName.length <= 2 || lastName.length <= 2) {
-		return res
-			.status(400)
-			.json({
-				error: "First name or last name must be at least 2 characters",
-			});
+	const passwordRegex = /^(?=.*[!@#$%^&*])(?=.{8,})/;
+	if (firstName.trim().length <= 2 || lastName.trim().length <= 2) {
+		throw new InvalidBodyParameterException(
+			"First name or last name must be at least 3 characters",
+			{}
+		);
 	} else if (!emailRegex.test(email)) {
-		return res
-			.status(400)
-			.json({ error: "Please enter a valid email address" });
+		throw new InvalidBodyParameterException(
+			"Please enter a valid email address",
+			{}
+		);
 	} else if (!passwordRegex.test(password)) {
-		return res
-			.status(400)
-			.json({
-				error: "Your password should include mixed characters and numbers and be at least 8 characters long",
-			});
+		throw new InvalidBodyParameterException(
+			"Your password should be minimum of 8 characters containing at least one special character",
+			{}
+		);
 	} else {
 		next();
 	}

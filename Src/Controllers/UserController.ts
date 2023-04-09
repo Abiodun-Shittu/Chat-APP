@@ -2,8 +2,10 @@ import { NextFunction, Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import User from "../Models/UserModel";
-import { UnauthorizedException } from "../Exceptions/UnauthorizedException";
+import { ConflictException } from "../Exceptions/ConflictException";
 import { successResponse } from "../Services/Response";
+
+const salt = Number(process.env.HASHING_SALT)
 
 export const createUser = async (
 	req: Request,
@@ -18,11 +20,11 @@ export const createUser = async (
 			where: { email: email },
 		});
 		if (checkIfEmailExists) {
-			throw new UnauthorizedException("Email already exists");
+			throw new ConflictException("Email already exists");
 		}
 
 		// Hash the password
-		const hashedPassword = await bcrypt.hash(password, 10);
+		const hashedPassword = await bcrypt.hash(password, salt);
 
 		// Create a new user
 		const newUser = await User.create({

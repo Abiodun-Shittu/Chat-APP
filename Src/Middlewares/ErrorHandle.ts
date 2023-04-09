@@ -13,8 +13,8 @@ export const errorHandler = (
 	res: Response,
 	next: NextFunction
 ) => {
-	let statusCode = 500;
-	let message = "Server error, please contact the administrator";
+	let statusCode: number;
+	let message: string;
 	let errors: Record<string, string> = {};
 
 	if (err instanceof ClientErrorException) {
@@ -36,9 +36,9 @@ export const errorHandler = (
 	} else if (err instanceof UnauthorizedException) {
 		statusCode = err.statusCode;
 		message = err.message;
-	} else if (err instanceof ServerError) {
-		statusCode = err.statusCode;
-		message = err.message;
+	} else {
+		statusCode = 500;
+		message = "Server error, please contact the administrator";
 	}
 	if (Object.keys(errors).length > 0) {
 		return res.status(statusCode).json({ statusCode, message, errors });
