@@ -1,8 +1,8 @@
 export class ClientErrorException extends Error {
-	statusCode: number;
+  statusCode: number;
 
-	constructor(message: string) {
-		super(message);
-		this.statusCode = 400;
-	}
+  constructor(message: string) {
+    super(message);
+    this.statusCode = 400;
+  }
 }
