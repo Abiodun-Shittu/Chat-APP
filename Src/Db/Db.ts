@@ -9,6 +9,7 @@ export const sequelize = new Sequelize({
   database: process.env.DB_DATABASE,
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
+  logging: process.env.NODE_ENV === 'test' ? false : console.log,
 });
 
 export const initiate = async () => {
